@@ -1,0 +1,35 @@
+---
+title: "Model Evaluation"
+author: "Matthew Edwards"
+date: "25/04/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Content
+
+1. Losses and Metrics
+2. Validation and Testing
+3. Challenges
+
+## Quick Overview
+
+- The first session **Losses and Metrics** will cover how to *select* a metric that aligns with the application of the model. 
+- The second session **Validation and Testing** will cover how to *estimate* a metric.
+- The third session **Cha**
+
+# Lossess and Metrics
+
+## Lossess and Metrics
+
+# Validation and Testing
+
+## Validation and Testing
+
+# Challenges
+
+## Challenges
+
