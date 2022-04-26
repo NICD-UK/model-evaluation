@@ -116,7 +116,7 @@ slide:not(.current) .plotly.html-widget{
 
 <ol>
 <li>Metrics and Goals</li>
-<li>Testing</li>
+<li>Estimating Metrics</li>
 <li>Challenges</li>
 </ol>
 
@@ -124,7 +124,7 @@ slide:not(.current) .plotly.html-widget{
 
 <ul>
 <li>The first session <strong>Metrics and Goals</strong> will cover how to <em>select</em> a metric.</li>
-<li>The second session <strong>Testing</strong> will cover how to <em>estimate</em> a metric.</li>
+<li>The second session <strong>Estimating Metrics</strong> will cover how to <em>estimate</em> a metric.</li>
 <li>The third session <strong>Challenges</strong> will cover what can go wrong!</li>
 </ul>
 
@@ -163,10 +163,10 @@ slide:not(.current) .plotly.html-widget{
 <li><strong>20% Accuracy</strong>: 20 out of 100 predictions <em>will<sup>1</sup></em> be correct.</li>
 </ul>
 
-<p><sup>1</sup>This is a generalisation statement (based on testing data).</p>
+<p><sup>1</sup><em>This is a generalisation statement</em>.</p>
 
 <ul>
-<li><strong>Question</strong>: Is 80% or 20% accuracy good or bad?</li>
+<li><strong>Question</strong>: Is 80% accuracy good or bad?</li>
 <li><strong>Answer</strong>: Depends on the <strong>goal</strong>!</li>
 </ul>
 
@@ -189,10 +189,10 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>Accuracy Again</h2></hgroup><article  id="accuracy-again">
 
 <ul>
-<li>Correct Positive Prediction (TP)</li>
-<li>Correct Negative Prediction (TN)</li>
-<li>Incorrect Positive Prediction (FP)</li>
-<li>Incorrect Negative prediction (FN)</li>
+<li><strong>TP</strong>: Correct (True) Positive Prediction</li>
+<li><strong>TN</strong>: Correct (True) Negative Prediction</li>
+<li><strong>FP</strong>: Incorrect (False) Positive Prediction</li>
+<li><strong>FN</strong>: Incorrect (False) Negative prediction</li>
 </ul>
 
 <p>\[
@@ -203,10 +203,10 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example">
 
-<p>Consider the previous example again where the accuracy of the model is 99%. What if:</p>
+<p>Consider the previous example again where the accuracy of the model is 95%. What if:</p>
 
 <ol>
-<li>99 out of 100 people in the test dataset have no tumour.</li>
+<li>1 out of 20 people in the test dataset have no tumour.</li>
 <li>The model always predicts no tumour.</li>
 </ol>
 
@@ -230,11 +230,11 @@ slide:not(.current) .plotly.html-widget{
 <li><strong>Answer</strong>: No. What if the metrics where <em>poorly</em> estimated?</li>
 </ul>
 
-<p>This leads to estimating metrics with a testing dataset</p>
+<p>This leads to correctly estimating metrics.</p>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Testing</h2></hgroup><article  id="testing">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Estimating Metrics</h2></hgroup><article  id="estimating-metrics">
 
-</article></slide><slide class=""><hgroup><h2>Poor Estimation</h2></hgroup><article  id="poor-estimation">
+</article></slide><slide class=""><hgroup><h2>Correct Estimation</h2></hgroup><article  id="correct-estimation">
 
 <ul>
 <li><strong>Question</strong>: When is a metric estimated correctly?</li>
@@ -243,16 +243,16 @@ slide:not(.current) .plotly.html-widget{
 
 <p>The <strong>true</strong> metric is the performance of the model on all the data (i.e. population). The <strong>estimated</strong> metric is the performance on a subset of all the data (i.e. sample).</p>
 
-</article></slide><slide class=""><hgroup><h2>Testing</h2></hgroup><article  id="testing-1">
+</article></slide><slide class=""><hgroup><h2>Testing</h2></hgroup><article  id="testing">
 
-<p>The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be</p>
+<p>The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be:</p>
 
 <ol>
 <li>Independent of the training dataset</li>
 <li>Representative of the population</li>
 </ol>
 
-<p>This is usually done by taking from the available data a random \((1-p)\) proportion for the testing dataset and \(p\) for the training dataset. For example \(p=0.8\) is common.</p>
+<p>This is usually done by taking from the available data a random sample for the testing dataset and the training dataset is what remains.</p>
 
 </article></slide><slide class=""><hgroup><h2>Independent</h2></hgroup><article  id="independent">
 

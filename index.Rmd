@@ -12,13 +12,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Content
 
 1. Metrics and Goals
-2. Testing
+2. Estimating Metrics
 3. Challenges
 
 ## Quick Overview
 
 - The first session **Metrics and Goals** will cover how to *select* a metric. 
-- The second session **Testing** will cover how to *estimate* a metric.
+- The second session **Estimating Metrics** will cover how to *estimate* a metric.
 - The third session **Challenges** will cover what can go wrong!
 
 # Metrics and Goals
@@ -52,10 +52,10 @@ Accuracy examples:
 - **80% Accuracy**: 80 out of 100 predictions *will^1^* be correct. 
 - **20% Accuracy**: 20 out of 100 predictions *will^1^* be correct.
 
-^1^This is a generalisation statement (based on testing data).
+^1^*This is a generalisation statement*.
 
 
-- **Question**: Is 80% or 20% accuracy good or bad?
+- **Question**: Is 80% accuracy good or bad?
 - **Answer**: Depends on the **goal**!
 
 ## Goals
@@ -72,10 +72,10 @@ In this example the **cost** of a incorrectly predicting no tumour is *higher* t
 
 ## Accuracy Again
 
-- Correct Positive Prediction (TP)
-- Correct Negative Prediction (TN)
-- Incorrect Positive Prediction (FP)
-- Incorrect Negative prediction (FN)
+- **TP**: Correct (True) Positive Prediction
+- **TN**: Correct (True) Negative Prediction
+- **FP**: Incorrect (False) Positive Prediction
+- **FN**: Incorrect (False) Negative prediction
 
 $$
 \text{Accuracy} = \frac{\text{# TP + # TN}}{\text{# TP + # TN + # FP + # FN}}
@@ -85,9 +85,9 @@ The errors are **not distinguished** in the accuracy metric.
 
 ## Example
 
-Consider the previous example again where the accuracy of the model is 99%. What if:
+Consider the previous example again where the accuracy of the model is 95%. What if:
 
-1. 99 out of 100 people in the test dataset have no tumour.
+1. 1 out of 20 people in the test dataset have no tumour.
 2. The model always predicts no tumour. 
 
 This model **cannot** predict tumours but has 99% accuracy!!!
@@ -108,11 +108,11 @@ Aligning metrics and goals is of **critical importance** when evaluating a model
 - **Question**: If the metrics and the goals are aligned does good metric performance imply good goal performance?
 - **Answer**: No. What if the metrics where *poorly* estimated?
 
-This leads to estimating metrics with a testing dataset
+This leads to correctly estimating metrics.
 
-# Testing
+# Estimating Metrics
 
-## Poor Estimation
+## Correct Estimation
 
 - **Question**: When is a metric estimated correctly?
 - **Answer**: When the estimated metric accurately reflect the true metric.
@@ -121,12 +121,12 @@ The **true** metric is the performance of the model on all the data (i.e. popula
 
 ## Testing
 
-The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be
+The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be:
 
 1. Independent of the training dataset
 2. Representative of the population
 
-This is usually done by taking from the available data a  random $(1-p)$ proportion for the testing dataset and $p$ for the training dataset. For example $p=0.8$ is common.
+This is usually done by taking from the available data a  random sample for the testing dataset and the training dataset is what remains.
 
 ## Independent
 
