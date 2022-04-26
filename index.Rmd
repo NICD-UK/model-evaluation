@@ -11,25 +11,176 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Content
 
-1. Losses and Metrics
-2. Validation and Testing
+1. Metrics and Goals
+2. Testing
 3. Challenges
 
 ## Quick Overview
 
-- The first session **Losses and Metrics** will cover how to *select* a metric that aligns with the application of the model. 
-- The second session **Validation and Testing** will cover how to *estimate* a metric.
-- The third session **Cha**
+- The first session **Losses and Metrics** will cover how to *select* a metric. 
+- The second session **Testing** will cover how to *estimate* a metric.
+- The third session **Challenges** will cover what can go wrong!
 
-# Lossess and Metrics
+# Metrics and Goals
 
-## Lossess and Metrics
+## Metrics
 
-# Validation and Testing
+Metrics are used to **evaluate** the **performance** of a model. The performance is *always* related to the metric. For example:
 
-## Validation and Testing
+- 95% Accuracy
+- 0.4 MSE
+- 80% Recall
+- 0.7 ROC AUC
+- 0.98 Brier Skill Score
+
+Accuracy, RRMSE, Recall, ROC AUC and Brier Skill Score are all examples of metrics. 
+
+## Accuracy
+
+In `sklearn.metrics` there are nineteen classification metrics and eleven regression metrics. Without loss of generality we will *only* discuss the accuracy metric, defined as:
+
+$$
+\text{Accuracy} = \frac{\text{# Correct Predictions}}{\text{# Predictions}}
+$$
+
+What does **good** performance mean relative to accuracy?
+
+## Accuracy
+
+Accuracy examples:
+
+- **80% Accuracy**: 80 out of 100 predictions *will^1^* be correct. 
+- **20% Accuracy**: 20 out of 100 predictions *will^1^* be correct.
+
+^1^This is a generalisation statement (based on testing data).
+
+
+- **Question**: Is 80% or 20% accuracy good or bad?
+- **Answer**: Depends on the **goal**!
+
+## Goals
+
+Consider an example where the model is predicts **tumour** (positive prediction) or **no tumour** (negative prediction) from a medical image. There are two types of error:
+
+- **Type I**: Incorrectly predict tumour.
+- **Type II**: Incorrectly predict no tumour. 
+
+In this example the **cost** of a incorrectly predicting no tumour is *higher* than the cost of incorrectly predicting tumour. 
+
+- **Question**: Is this captured by accuracy?
+- **Answer**: No!
+
+## Accuracy Again
+
+- Correct Positive Prediction (TP)
+- Correct Negative Prediction (TN)
+- Incorrect Positive Prediction (FP)
+- Incorrect Negative prediction (FN)
+
+$$
+\text{Accuracy} = \frac{\text{# TP + # TN}}{\text{# TP + # TN + # FP + # FN}}
+$$
+
+The errors are **not distinguished** in the accuracy metric.
+
+## Example
+
+Consider the previous example again where the accuracy of the model is 99%. What if:
+
+1. 99 out of 100 people in the test dataset have no tumour.
+2. The model always predicts no tumour. 
+
+This model **cannot** predict tumours but has 99% accuracy!!!
+
+## Metrics and Goals
+
+The problem with the example is that the **metric** is not aligned with the **goal**. The consequence of this misalignment is that:
+
+$$
+\underline{\textbf{good metric performance does not imply}} \\
+\underline{\textbf{good goal performance.}}
+$$
+
+Aligning metrics and goals is of **critical importance** when evaluating a model or assessing the evaluation of a model.
+
+## Good Alignment
+
+- **Question**: If the metrics and the goals are aligned does good metric performance imply good goal performance?
+- **Answer**: No. What if the metrics where *poorly* estimated?
+
+This leads to estimating metrics with testing sets
+
+# Testing
+
+## Poor Estimation
+
+- **Question**: When is a metric estimated correctly?
+- **Answer**: When the estimated metric does not accurately reflect the true metric.
+
+The **true** metric is the performance of the model on all the data (i.e. population). The **estimated** metric is the performance on a subset of all the data (i.e. sample). 
+
+## Testing
+
+The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is no appropriate. The sample (i.e. test dataset) should be
+
+1. Independent of the training dataset
+2. Representative of the population
+
+This is usually done by taking from the available data a  random $(1-p)$% for the training dataset and $p$% for the testing dataset. For example $p=80$ is common.
+
+## Independent
+
+- **Question**: If there are no common data points in the training and testing datasets are they independent?
+- **Answer**: Not necessarily. Independence requires that information in the training dataset is not contain in the testing dataset. 
+
+Common names of this are **data leakage** or **data snooping**. 
+
+**Example**: The testing dataset is standardised with a mean and a variance calculated from the training dataset.
+
+## Independent
+
+This can *only* be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experience.
+
+## Representative
+
+- **Question**: If the testing dataset is a random subset of the available data is the testing dataset representative?
+- **Answer**: Not necessarily. In classification when positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!
+
+This is commonly the case when datasets are small and the positive class is rare. The standard method to account for this is to perform random **stratification** sampling rather than random sampling. 
+
+## Representative
+
+Again, this can only be assessed by review the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. 
 
 # Challenges
 
-## Challenges
+## Good Estimation
 
+- **Question**: If the metrics and the goals are aligned *and* the metrics are correctly estimated does good metric performance imply good goal performance?
+- **Answer**: No necessary. Issues can arises at deployment and during deployment. 
+
+The issue that can arise at deployment is known as **data skew** and the issue that can arise during deployment is known as **data shift**. 
+
+## Data Skew
+
+Data skew is when the data delivered to the model during training is different to the data delivered to the model during inference (i.e. prediction).
+
+This commonly happens when a different data pipeline is used during training and inference. Different pipelines are often used when training is done **off-line** but inference is done **on-line** (e.g. real-time).
+
+## Data Shift
+
+Data shift is when the data delivered to the model during inference changes over time. 
+
+The issue is that if the data is changing the true metrics are changing and therefore the estimated metrics are inaccurate. 
+
+This issue is solved with monitoring and re-training the model.
+
+# Conclusion
+
+## Conclusion
+
+To assess a model you need to make sure:
+
+1. The metrics are aligned with the goals,
+2. the metrics are correctly estimated and
+3. the model is deployed, monitored and maintained correctly.

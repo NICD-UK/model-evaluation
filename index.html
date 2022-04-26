@@ -115,30 +115,209 @@ slide:not(.current) .plotly.html-widget{
 <slide class=""><hgroup><h2>Content</h2></hgroup><article  id="content">
 
 <ol>
-<li>Losses and Metrics</li>
-<li>Validation and Testing</li>
+<li>Metrics and Goals</li>
+<li>Testing</li>
 <li>Challenges</li>
 </ol>
 
 </article></slide><slide class=""><hgroup><h2>Quick Overview</h2></hgroup><article  id="quick-overview">
 
 <ul>
-<li>The first session <strong>Losses and Metrics</strong> will cover how to <em>select</em> a metric that aligns with the application of the model.</li>
-<li>The second session <strong>Validation and Testing</strong> will cover how to <em>estimate</em> a metric.</li>
-<li>The third session <strong>Cha</strong></li>
+<li>The first session <strong>Losses and Metrics</strong> will cover how to <em>select</em> a metric.</li>
+<li>The second session <strong>Testing</strong> will cover how to <em>estimate</em> a metric.</li>
+<li>The third session <strong>Challenges</strong> will cover what can go wrong!</li>
 </ul>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Lossess and Metrics</h2></hgroup><article  id="lossess-and-metrics">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Metrics and Goals</h2></hgroup><article  id="metrics-and-goals">
 
-</article></slide><slide class=""><hgroup><h2>Lossess and Metrics</h2></hgroup><article  id="lossess-and-metrics-1">
+</article></slide><slide class=""><hgroup><h2>Metrics</h2></hgroup><article  id="metrics">
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Validation and Testing</h2></hgroup><article  id="validation-and-testing">
+<p>Metrics are used to <strong>evaluate</strong> the <strong>performance</strong> of a model. The performance is <em>always</em> related to the metric. For example:</p>
 
-</article></slide><slide class=""><hgroup><h2>Validation and Testing</h2></hgroup><article  id="validation-and-testing-1">
+<ul>
+<li>95% Accuracy</li>
+<li>0.4 MSE</li>
+<li>80% Recall</li>
+<li>0.7 ROC AUC</li>
+<li>0.98 Brier Skill Score</li>
+</ul>
+
+<p>Accuracy, RRMSE, Recall, ROC AUC and Brier Skill Score are all examples of metrics.</p>
+
+</article></slide><slide class=""><hgroup><h2>Accuracy</h2></hgroup><article  id="accuracy">
+
+<p>In <code>sklearn.metrics</code> there are nineteen classification metrics and eleven regression metrics. Without loss of generality we will <em>only</em> discuss the accuracy metric, defined as:</p>
+
+<p>\[
+\text{Accuracy} = \frac{\text{# Correct Predictions}}{\text{# Predictions}}
+\]</p>
+
+<p>What does <strong>good</strong> performance mean relative to accuracy?</p>
+
+</article></slide><slide class=""><hgroup><h2>Accuracy</h2></hgroup><article  id="accuracy-1">
+
+<p>Accuracy examples:</p>
+
+<ul>
+<li><strong>80% Accuracy</strong>: 80 out of 100 predictions <em>will<sup>1</sup></em> be correct.</li>
+<li><strong>20% Accuracy</strong>: 20 out of 100 predictions <em>will<sup>1</sup></em> be correct.</li>
+</ul>
+
+<p><sup>1</sup>This is a generalisation statement (based on testing data).</p>
+
+<ul>
+<li><strong>Question</strong>: Is 80% or 20% accuracy good or bad?</li>
+<li><strong>Answer</strong>: Depends on the <strong>goal</strong>!</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Goals</h2></hgroup><article  id="goals">
+
+<p>Consider an example where the model is predicts <strong>tumour</strong> (positive prediction) or <strong>no tumour</strong> (negative prediction) from a medical image. There are two types of error:</p>
+
+<ul>
+<li><strong>Type I</strong>: Incorrectly predict tumour.</li>
+<li><strong>Type II</strong>: Incorrectly predict no tumour.</li>
+</ul>
+
+<p>In this example the <strong>cost</strong> of a incorrectly predicting no tumour is <em>higher</em> than the cost of incorrectly predicting tumour.</p>
+
+<ul>
+<li><strong>Question</strong>: Is this captured by accuracy?</li>
+<li><strong>Answer</strong>: No!</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Accuracy Again</h2></hgroup><article  id="accuracy-again">
+
+<ul>
+<li>Correct Positive Prediction (TP)</li>
+<li>Correct Negative Prediction (TN)</li>
+<li>Incorrect Positive Prediction (FP)</li>
+<li>Incorrect Negative prediction (FN)</li>
+</ul>
+
+<p>\[
+\text{Accuracy} = \frac{\text{# TP + # TN}}{\text{# TP + # TN + # FP + # FN}}
+\]</p>
+
+<p>The errors are <strong>not distinguished</strong> in the accuracy metric.</p>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example">
+
+<p>Consider the previous example again where the accuracy of the model is 99%. What if:</p>
+
+<ol>
+<li>99 out of 100 people in the test dataset have no tumour.</li>
+<li>The model always predicts no tumour.</li>
+</ol>
+
+<p>This model <strong>cannot</strong> predict tumours but has 99% accuracy!!!</p>
+
+</article></slide><slide class=""><hgroup><h2>Metrics and Goals</h2></hgroup><article  id="metrics-and-goals-1">
+
+<p>The problem with the example is that the <strong>metric</strong> is not aligned with the <strong>goal</strong>. The consequence of this misalignment is that:</p>
+
+<p>\[
+\underline{\textbf{good metric performance does not imply}} \\
+\underline{\textbf{good goal performance.}}
+\]</p>
+
+<p>Aligning metrics and goals is of <strong>critical importance</strong> when evaluating a model or assessing the evaluation of a model.</p>
+
+</article></slide><slide class=""><hgroup><h2>Good Alignment</h2></hgroup><article  id="good-alignment">
+
+<ul>
+<li><strong>Question</strong>: If the metrics and the goals are aligned does good metric performance imply good goal performance?</li>
+<li><strong>Answer</strong>: No. What if the metrics where <em>poorly</em> estimated?</li>
+</ul>
+
+<p>This leads to estimating metrics with testing sets</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Testing</h2></hgroup><article  id="testing">
+
+</article></slide><slide class=""><hgroup><h2>Poor Estimation</h2></hgroup><article  id="poor-estimation">
+
+<ul>
+<li><strong>Question</strong>: When is a metric estimated correctly?</li>
+<li><strong>Answer</strong>: When the estimated metric does not accurately reflect the true metric.</li>
+</ul>
+
+<p>The <strong>true</strong> metric is the performance of the model on all the data (i.e. population). The <strong>estimated</strong> metric is the performance on a subset of all the data (i.e. sample).</p>
+
+</article></slide><slide class=""><hgroup><h2>Testing</h2></hgroup><article  id="testing-1">
+
+<p>The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is no appropriate. The sample (i.e. test dataset) should be</p>
+
+<ol>
+<li>Independent of the training dataset</li>
+<li>Representative of the population</li>
+</ol>
+
+<p>This is usually done by taking from the available data a random \((1-p)\)% for the training dataset and \(p\)% for the testing dataset. For example \(p=80\) is common.</p>
+
+</article></slide><slide class=""><hgroup><h2>Independent</h2></hgroup><article  id="independent">
+
+<ul>
+<li><strong>Question</strong>: If there are no common data points in the training and testing datasets are they independent?</li>
+<li><strong>Answer</strong>: Not necessarily. Independence requires that information in the training dataset is not contain in the testing dataset.</li>
+</ul>
+
+<p>Common names of this are <strong>data leakage</strong> or <strong>data snooping</strong>.</p>
+
+<p><strong>Example</strong>: The testing dataset is standardised with a mean and a variance calculated from the training dataset.</p>
+
+</article></slide><slide class=""><hgroup><h2>Independent</h2></hgroup><article  id="independent-1">
+
+<p>This can <em>only</em> be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experience.</p>
+
+</article></slide><slide class=""><hgroup><h2>Representative</h2></hgroup><article  id="representative">
+
+<ul>
+<li><strong>Question</strong>: If the testing dataset is a random subset of the available data is the testing dataset representative?</li>
+<li><strong>Answer</strong>: Not necessarily. In classification when positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!</li>
+</ul>
+
+<p>This is commonly the case when datasets are small and the positive class is rare. The standard method to account for this is to perform random <strong>stratification</strong> sampling rather than random sampling.</p>
+
+</article></slide><slide class=""><hgroup><h2>Representative</h2></hgroup><article  id="representative-1">
+
+<p>Again, this can only be assessed by review the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue.</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Challenges</h2></hgroup><article  id="challenges">
 
-</article></slide><slide class=""><hgroup><h2>Challenges</h2></hgroup><article  id="challenges-1"></article></slide>
+</article></slide><slide class=""><hgroup><h2>Good Estimation</h2></hgroup><article  id="good-estimation">
+
+<ul>
+<li><strong>Question</strong>: If the metrics and the goals are aligned <em>and</em> the metrics are correctly estimated does good metric performance imply good goal performance?</li>
+<li><strong>Answer</strong>: No necessary. Issues can arises at deployment and during deployment.</li>
+</ul>
+
+<p>The issue that can arise at deployment is known as <strong>data skew</strong> and the issue that can arise during deployment is known as <strong>data shift</strong>.</p>
+
+</article></slide><slide class=""><hgroup><h2>Data Skew</h2></hgroup><article  id="data-skew">
+
+<p>Data skew is when the data delivered to the model during training is different to the data delivered to the model during inference (i.e. prediction).</p>
+
+<p>This commonly happens when a different data pipeline is used during training and inference. Different pipelines are often used when training is done <strong>off-line</strong> but inference is done <strong>on-line</strong> (e.g. real-time).</p>
+
+</article></slide><slide class=""><hgroup><h2>Data Shift</h2></hgroup><article  id="data-shift">
+
+<p>Data shift is when the data delivered to the model during inference changes over time.</p>
+
+<p>The issue is that if the data is changing the true metrics are changing and therefore the estimated metrics are inaccurate.</p>
+
+<p>This issue is solved with monitoring and re-training the model.</p>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Conclusion</h2></hgroup><article  id="conclusion">
+
+</article></slide><slide class=""><hgroup><h2>Conclusion</h2></hgroup><article  id="conclusion-1">
+
+<p>To assess a model you need to make sure:</p>
+
+<ol>
+<li>The metrics are aligned with the goals,</li>
+<li>the metrics are correctly estimated and</li>
+<li>the model is deployed, monitored and maintained correctly.</li>
+</ol></article></slide>
 
 
   <slide class="backdrop"></slide>
