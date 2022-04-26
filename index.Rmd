@@ -119,7 +119,7 @@ This leads to correctly estimating metrics.
 
 The **true** metric is the performance of the model on all the data (i.e. population). The **estimated** metric is the performance on a subset of all the data (i.e. sample). 
 
-## Testing
+## Correct Estimation
 
 The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be:
 
