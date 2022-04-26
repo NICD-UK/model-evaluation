@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Quick Overview
 
-- The first session **Losses and Metrics** will cover how to *select* a metric. 
+- The first session **Metrics and Goals** will cover how to *select* a metric. 
 - The second session **Testing** will cover how to *estimate* a metric.
 - The third session **Challenges** will cover what can go wrong!
 
@@ -60,7 +60,7 @@ Accuracy examples:
 
 ## Goals
 
-Consider an example where the model is predicts **tumour** (positive prediction) or **no tumour** (negative prediction) from a medical image. There are two types of error:
+Consider an example where the model predicts **tumour** (positive prediction) or **no tumour** (negative prediction) from a medical image. There are two types of error:
 
 - **Type I**: Incorrectly predict tumour.
 - **Type II**: Incorrectly predict no tumour. 
@@ -108,20 +108,20 @@ Aligning metrics and goals is of **critical importance** when evaluating a model
 - **Question**: If the metrics and the goals are aligned does good metric performance imply good goal performance?
 - **Answer**: No. What if the metrics where *poorly* estimated?
 
-This leads to estimating metrics with testing sets
+This leads to estimating metrics with a testing dataset
 
 # Testing
 
 ## Poor Estimation
 
 - **Question**: When is a metric estimated correctly?
-- **Answer**: When the estimated metric does not accurately reflect the true metric.
+- **Answer**: When the estimated metric accurately reflect the true metric.
 
 The **true** metric is the performance of the model on all the data (i.e. population). The **estimated** metric is the performance on a subset of all the data (i.e. sample). 
 
 ## Testing
 
-The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is no appropriate. The sample (i.e. test dataset) should be
+The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be
 
 1. Independent of the training dataset
 2. Representative of the population
@@ -139,25 +139,25 @@ Common names of this are **data leakage** or **data snooping**.
 
 ## Independent
 
-This can *only* be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experience.
+This can *only* be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experienced.
 
 ## Representative
 
 - **Question**: If the testing dataset is a random subset of the available data is the testing dataset representative?
-- **Answer**: Not necessarily. In classification when positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!
+- **Answer**: Not necessarily. In classification when the positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!
 
 This is commonly the case when datasets are small and the positive class is rare. The standard method to account for this is to perform random **stratification** sampling rather than random sampling. 
 
 ## Representative
 
-Again, this can only be assessed by review the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. 
+Again, this can only be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. 
 
 # Challenges
 
 ## Good Estimation
 
 - **Question**: If the metrics and the goals are aligned *and* the metrics are correctly estimated does good metric performance imply good goal performance?
-- **Answer**: No necessary. Issues can arises at deployment and during deployment. 
+- **Answer**: No necessarily. Issues can arises at deployment and during deployment. 
 
 The issue that can arise at deployment is known as **data skew** and the issue that can arise during deployment is known as **data shift**. 
 

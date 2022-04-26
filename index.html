@@ -123,7 +123,7 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>Quick Overview</h2></hgroup><article  id="quick-overview">
 
 <ul>
-<li>The first session <strong>Losses and Metrics</strong> will cover how to <em>select</em> a metric.</li>
+<li>The first session <strong>Metrics and Goals</strong> will cover how to <em>select</em> a metric.</li>
 <li>The second session <strong>Testing</strong> will cover how to <em>estimate</em> a metric.</li>
 <li>The third session <strong>Challenges</strong> will cover what can go wrong!</li>
 </ul>
@@ -172,7 +172,7 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Goals</h2></hgroup><article  id="goals">
 
-<p>Consider an example where the model is predicts <strong>tumour</strong> (positive prediction) or <strong>no tumour</strong> (negative prediction) from a medical image. There are two types of error:</p>
+<p>Consider an example where the model predicts <strong>tumour</strong> (positive prediction) or <strong>no tumour</strong> (negative prediction) from a medical image. There are two types of error:</p>
 
 <ul>
 <li><strong>Type I</strong>: Incorrectly predict tumour.</li>
@@ -230,7 +230,7 @@ slide:not(.current) .plotly.html-widget{
 <li><strong>Answer</strong>: No. What if the metrics where <em>poorly</em> estimated?</li>
 </ul>
 
-<p>This leads to estimating metrics with testing sets</p>
+<p>This leads to estimating metrics with a testing dataset</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Testing</h2></hgroup><article  id="testing">
 
@@ -238,14 +238,14 @@ slide:not(.current) .plotly.html-widget{
 
 <ul>
 <li><strong>Question</strong>: When is a metric estimated correctly?</li>
-<li><strong>Answer</strong>: When the estimated metric does not accurately reflect the true metric.</li>
+<li><strong>Answer</strong>: When the estimated metric accurately reflect the true metric.</li>
 </ul>
 
 <p>The <strong>true</strong> metric is the performance of the model on all the data (i.e. population). The <strong>estimated</strong> metric is the performance on a subset of all the data (i.e. sample).</p>
 
 </article></slide><slide class=""><hgroup><h2>Testing</h2></hgroup><article  id="testing-1">
 
-<p>The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is no appropriate. The sample (i.e. test dataset) should be</p>
+<p>The estimated metric does not accurately reflect the true metric when the sample used to estimate the metric is not appropriate. The sample (i.e. testing dataset) should be</p>
 
 <ol>
 <li>Independent of the training dataset</li>
@@ -267,20 +267,20 @@ slide:not(.current) .plotly.html-widget{
 
 </article></slide><slide class=""><hgroup><h2>Independent</h2></hgroup><article  id="independent-1">
 
-<p>This can <em>only</em> be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experience.</p>
+<p>This can <em>only</em> be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue. However, these issues are often subtle and are not avoided by even the most experienced.</p>
 
 </article></slide><slide class=""><hgroup><h2>Representative</h2></hgroup><article  id="representative">
 
 <ul>
 <li><strong>Question</strong>: If the testing dataset is a random subset of the available data is the testing dataset representative?</li>
-<li><strong>Answer</strong>: Not necessarily. In classification when positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!</li>
+<li><strong>Answer</strong>: Not necessarily. In classification when the positive class is rare (e.g. tumour) sometimes the testing dataset might not include any positive cases!</li>
 </ul>
 
 <p>This is commonly the case when datasets are small and the positive class is rare. The standard method to account for this is to perform random <strong>stratification</strong> sampling rather than random sampling.</p>
 
 </article></slide><slide class=""><hgroup><h2>Representative</h2></hgroup><article  id="representative-1">
 
-<p>Again, this can only be assessed by review the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue.</p>
+<p>Again, this can only be assessed by reviewing the code. Typically you would have to trust that the Machine Learning Engineers avoided this issue.</p>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Challenges</h2></hgroup><article  id="challenges">
 
@@ -288,7 +288,7 @@ slide:not(.current) .plotly.html-widget{
 
 <ul>
 <li><strong>Question</strong>: If the metrics and the goals are aligned <em>and</em> the metrics are correctly estimated does good metric performance imply good goal performance?</li>
-<li><strong>Answer</strong>: No necessary. Issues can arises at deployment and during deployment.</li>
+<li><strong>Answer</strong>: No necessarily. Issues can arises at deployment and during deployment.</li>
 </ul>
 
 <p>The issue that can arise at deployment is known as <strong>data skew</strong> and the issue that can arise during deployment is known as <strong>data shift</strong>.</p>
