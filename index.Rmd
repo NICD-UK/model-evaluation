@@ -126,12 +126,12 @@ The estimated metric does not accurately reflect the true metric when the sample
 1. Independent of the training dataset
 2. Representative of the population
 
-This is usually done by taking from the available data a  random $(1-p)$% for the training dataset and $p$% for the testing dataset. For example $p=80$ is common.
+This is usually done by taking from the available data a  random $(1-p)$ proportion for the testing dataset and $p$ for the training dataset. For example $p=0.8$ is common.
 
 ## Independent
 
 - **Question**: If there are no common data points in the training and testing datasets are they independent?
-- **Answer**: Not necessarily. Independence requires that information in the training dataset is not contain in the testing dataset. 
+- **Answer**: Not necessarily. Independence requires that information in the training dataset is not contained in the testing dataset. 
 
 Common names of this are **data leakage** or **data snooping**. 
 
